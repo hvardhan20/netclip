@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Netclip</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            vertical-align: middle;
+        }
+        input[type="text"], textarea {
+
+            background-color : #1f1f1f;
+            color: white;
+
+        }
+    </style>
+</head>
+
+<body>
+<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+<form id="netform" action="/save" method="POST" target="dummyframe">
+New
+<textarea id="clip" name="clip" rows="4" cols="50">
+</textarea>
+<br/>
+<br/>
+<br/>
+
+In Database
+<textarea id="db" name="db" rows="20" cols="50">
+{{.Data}}
+</textarea>
+    <input type="submit" value="Save" name="Save"/>
+</form>
+
+</body>
+</html>
