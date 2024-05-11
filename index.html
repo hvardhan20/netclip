@@ -33,7 +33,49 @@ In Database
 {{.Data}}
 </textarea>
     <input type="submit" value="Save" name="Save"/>
+
 </form>
 
+<form action="/upload", enctype="multipart/form-data" method="post">
+    <input type="file" name="myFile" />
+    <input type="submit" value="Upload" />
+</form>
+<div id="renderList"></div>
+
 </body>
+<script>
+    (function(){
+        var ul = document.createElement('ul');
+        ul.setAttribute('id','fileList');
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "/file");
+        xhr.send();
+        xhr.responseType = "json";
+        xhr.onload = () => {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            const data = xhr.response;
+            console.log(data);
+            fileList = data;
+            document.getElementById('renderList').appendChild(ul);
+            fileList.forEach(renderFileList);
+
+            function renderFileList(element, index, arr) {
+                var li = document.createElement('li');
+                li.setAttribute('class','item');
+                var a = document.createElement("a");
+                a.href = "/file/"+element['Name'];
+                a.textContent = element['Name'];
+                li.appendChild(a)
+               
+                ul.appendChild(li);
+
+                
+            }
+        } else {
+            console.log(`Error: ${xhr.status}`);
+        }
+        };
+        
+    })();
+</script>
 </html>
