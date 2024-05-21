@@ -125,11 +125,11 @@ func getFile(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		fmt.Println("file is missing in parameters")
 	}
+	body, err := os.ReadFile(fmt.Sprintf("tmp/%s", fileName))
 	fmt.Printf("file is %v", fileName)
 	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=%s", fileName))
-	w.Header().Set("Content-Type", r.Header.Get("Content-Type"))
-	w.Header().Set("Content-Length", r.Header.Get("Content-Length"))
-	body, err := os.ReadFile(fmt.Sprintf("tmp/%s", fileName))
+	w.Header().Set("Content-Type", "text/plain")
+	w.Header().Set("Content-Length", fmt.Sprint(len(body)))
 
 	checkErr(err)
 	io.Copy(w, strings.NewReader(string(body)))
